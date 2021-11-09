@@ -89,12 +89,25 @@ class AlienInvasion:
 
     def _create_fleet(self):
         """Create the fleet of aliens"""
-        # Make and alien
+        # Make the alien
         alien = Alien(self)
+        alien_width = alien.rect.width
+        available_space_x = self.settings.screen_width - (2 * alien_width)
+        number_aliens_x = available_space_x // (2 * alien_width)
+        # Create the first row of aliens
+        for alien_number in range(number_aliens_x):
+            self._create_alien(alien_number)
+    
+    def _create_alien(self, alien_number):
+        # Creating one alien and placing all in rows
+        alien = Alien(self)
+        alien_width = alien.rect.width
+        alien.x = alien_width + (2 * alien_width * alien_number)
+        alien.rect.x = alien.x
         self.aliens.add(alien)
 
     def _update_screen(self):
-        """Update images on the sceen and flip to the new screen """
+        """Update images on the sceen and flip to the new screen"""
         self.screen.fill(self.settings.bg_color)
         self.ship.blitme()
         for bullet in self.bullets.sprites():
