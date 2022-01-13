@@ -14,10 +14,8 @@ INTRODUCTION
 
 To be provided
 
-Easy Breadcrumb uses the current URL (path alias) and the current page's title
-to automatically extract the breadcrumb's segments and its respective links.
-The module is really a plug and play module because it auto-generates the
-breadcrumb by using the current URL and nothing extra is needed.
+abc
+
 
  * bullet point 1
 
