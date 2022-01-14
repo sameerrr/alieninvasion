@@ -1,6 +1,7 @@
 
 # Importing libraries
 import sys
+from time import sleep
 import pygame
 
 # Importing custom libraries
@@ -8,6 +9,7 @@ from settings import Settings
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
+from game_stats import GameStats
 
 class AlienInvasion:
     """Overall class to manage game assets and behaviour"""
@@ -16,15 +18,16 @@ class AlienInvasion:
         """Initialize the game and create game resources"""
         pygame.init()
         self.settings = Settings()
-        """ self.screen = pygame.display.set_mode(
-            (self.settings.screen_width, self.settings.screen_height)) """
         # Making screen full screen
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        # Display settings and creation of game window
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
-
         pygame.display.set_caption(self.settings.game_title)
+        # Game statistics and ship details
+        self.stats = GameStats(self)
         self.ship = Ship(self)
+        # Other game elements
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
         self._create_fleet()
@@ -101,6 +104,23 @@ class AlienInvasion:
         """Update the position of all the aliens on the fleet"""
         self._check_fleet_edges()
         self.aliens.update()
+        # Look for alien-ship collisions. 
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            #print("Ship hit!!!")
+            self._ship_hit()
+
+    def _ship_hit(self):
+        """Respond if the ship is hit by aliens"""
+        # Decrease the number of ships left
+        self.stats.ships_left -= 1
+        # Remove all remaining aliens and bullets
+        self.aliens.empty()
+        self.bullets.empty()
+        # Create new fleet and center the ship
+        self._create_fleet()
+        self.ship.center_ship()
+        # Pausing the game
+        sleep(self.settings.pause)
 
     def _create_fleet(self):
         """Create the fleet of aliens"""
