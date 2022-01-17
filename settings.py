@@ -22,7 +22,7 @@ class Settings:
 
         # Alien setting
         self.alien_speed = 0.1
-        self.fleet_drop_speed = 30
+        self.fleet_drop_speed = 300
         # Fleet direction of 1 is right and -1 is left
         self.fleet_direction = 1
 
