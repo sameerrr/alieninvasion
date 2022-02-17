@@ -21,7 +21,7 @@ class Settings:
         self.speedup_scale = 1.2
         self.score_scale = 1.5
         # Game settings
-        self.pause = 1
+        self.pause = 0.1
         self.initialize_dynamic_settings()
 
     def initialize_dynamic_settings(self):
