@@ -9,7 +9,7 @@ class Settings:
         self.game_title = "Alien Invasion"
         self.bg_color = (230, 230, 230)
         # Ship settings
-        self.ship_limit = 3
+        self.ship_limit = 1
         # Bullet setttings
         self.bullet_width = 3
         self.bullet_height = 15

@@ -73,6 +73,7 @@ class AlienInvasion:
             self.stats.reset_stats()
             self.stats.game_active = True
             self.sb.prep_score()
+            self.sb.prep_level()
             # Remove all the remaining bullets and aliens
             self.aliens.empty()
             self.bullets.empty()
@@ -124,11 +125,15 @@ class AlienInvasion:
             for aliens in collisions.values():
                 self.stats.score += self.settings.alien_points * len(aliens)
             self.sb.prep_score()
+            self.sb.check_high_score()
         if not self.aliens:
             # Destroy existing bullets and create new fleet
             self.bullets.empty()
             self._create_fleet()
             self.settings.increase_speed()
+            # Increase the game level
+            self.stats.level += 1
+            self.sb.prep_level()
 
     def _update_aliens(self):
         """Update the position of all the aliens on the fleet"""
@@ -221,7 +226,6 @@ class AlienInvasion:
             self.play_button.draw_button()
         # Make the most recently drawn screen visible
         pygame.display.flip()
-
 
 
 if __name__ == '__main__':
