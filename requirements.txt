@@ -1,0 +1,3 @@
+
+# Project 1: Alien invasion game installation
+pygame
